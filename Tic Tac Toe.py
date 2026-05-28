@@ -62,14 +62,42 @@ def check_winner(board):
                 print('o has won the game')
         else:
                 return False
-def check_tie(board):
-       return '' not in board  
-        
+def check_tie(board,):
+        lines = [
+        [board[0][0], board[0][1], board[0][2]],
+        [board[1][0], board[1][1], board[1][2]],
+        [board[2][0], board[2][1], board[2][2]],
+        [board[0][0], board[1][0], board[2][0]],
+        [board[0][1], board[1][1], board[2][1]],
+        [board[0][2], board[1][2], board[2][2]],
+        [board[0][0], board[1][1], board[2][2]],
+        [board[2][0], board[1][1], board[0][2]],
+                ]
+        for line in lines:
+                if line[0] == ' ' and line[0] == line[1] == line[2]:
+                        return line[0]
+     
 def main():
         print("welcome to Tic-Tac-Toe")
         board =  [[' ',' ',' '],
                   [' ',' ',' '],
                   [' ',' ',' ']]
-        print (display_board(board))
+        player = 'x'
+        display_board(board)
+
+        while True:
+                get_players_move(board, player)
+                display_board(board)
+
+                winner = check_winner(board)
+                if winner:
+                        print(f"Player {winner} won the game!")
+                        break
         
+                if check_tie(board):
+                        print("It's a tie!")
+                        break 
+
+                player = 'o' if player == 'x' else 'x'
 main()
+
